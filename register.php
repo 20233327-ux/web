@@ -42,7 +42,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Đăng ký - <?= SITE_NAME ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
+        <link href="<?= BASE_URL ?>/assets/css/style.css?v=20260314-2" rel="stylesheet">
+        <style>
+            /* Fallback: keep register inputs visible/editable even with stale CSS cache */
+            .auth-card input[type="text"],
+            .auth-card input[type="email"],
+            .auth-card input[type="password"] {
+                display: block !important;
+                width: 100% !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                background: #1a1a1a !important;
+                border: 2px solid #555 !important;
+                color: #fff !important;
+                min-height: 46px !important;
+                padding: 12px 14px !important;
+            }
+        </style>
 </head>
 <body class="auth-page">
 <div class="auth-bg"></div>
@@ -59,44 +76,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
             <div class="mb-3">
                 <label class="form-label text-muted">Tên đăng nhập <span class="text-danger">*</span></label>
-                <div class="input-group">
-                    <span class="input-group-text auth-input-icon"><i class="fas fa-user"></i></span>
-                    <input type="text" name="username" class="form-control auth-input" placeholder="Chỉ chữ cái, số, dấu _" value="<?= sanitize($_POST['username'] ?? '') ?>" required>
-                </div>
+                <input type="text" name="username" class="form-control auth-input auth-input-plain" placeholder="Chỉ chữ cái, số, dấu _" value="<?= sanitize($_POST['username'] ?? '') ?>" required autocomplete="username">
             </div>
             <div class="mb-3">
                 <label class="form-label text-muted">Họ và tên</label>
-                <div class="input-group">
-                    <span class="input-group-text auth-input-icon"><i class="fas fa-id-card"></i></span>
-                    <input type="text" name="full_name" class="form-control auth-input" placeholder="Không bắt buộc" value="<?= sanitize($_POST['full_name'] ?? '') ?>">
-                </div>
+                <input type="text" name="full_name" class="form-control auth-input auth-input-plain" placeholder="Không bắt buộc" value="<?= sanitize($_POST['full_name'] ?? '') ?>" autocomplete="name">
             </div>
             <div class="mb-3">
                 <label class="form-label text-muted">Email <span class="text-danger">*</span></label>
-                <div class="input-group">
-                    <span class="input-group-text auth-input-icon"><i class="fas fa-envelope"></i></span>
-                    <input type="email" name="email" class="form-control auth-input" placeholder="example@email.com" value="<?= sanitize($_POST['email'] ?? '') ?>" required>
-                </div>
+                <input type="email" name="email" class="form-control auth-input auth-input-plain" placeholder="example@email.com" value="<?= sanitize($_POST['email'] ?? '') ?>" required autocomplete="email">
             </div>
             <div class="mb-3">
                 <label class="form-label text-muted">Mật khẩu <span class="text-danger">*</span></label>
-                <div class="input-group">
-                    <span class="input-group-text auth-input-icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" name="password" class="form-control auth-input" placeholder="Tối thiểu 6 ký tự" required id="pw1">
-                    <button type="button" class="input-group-text auth-input-icon" onclick="toggle('pw1','eye1')">
-                        <i class="fas fa-eye" id="eye1"></i>
-                    </button>
-                </div>
+                <input type="password" name="password" class="form-control auth-input auth-input-plain" placeholder="Tối thiểu 6 ký tự" required id="pw1" autocomplete="new-password">
             </div>
             <div class="mb-4">
                 <label class="form-label text-muted">Xác nhận mật khẩu <span class="text-danger">*</span></label>
-                <div class="input-group">
-                    <span class="input-group-text auth-input-icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" name="confirm" class="form-control auth-input" placeholder="Nhập lại mật khẩu" required id="pw2">
-                    <button type="button" class="input-group-text auth-input-icon" onclick="toggle('pw2','eye2')">
-                        <i class="fas fa-eye" id="eye2"></i>
-                    </button>
-                </div>
+                <input type="password" name="confirm" class="form-control auth-input auth-input-plain" placeholder="Nhập lại mật khẩu" required id="pw2" autocomplete="new-password">
             </div>
             <button type="submit" class="btn btn-danger w-100 py-2 fw-bold">
                 <i class="fas fa-user-plus me-2"></i>Đăng ký
@@ -109,12 +105,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-function toggle(id, eyeId) {
-    const f = document.getElementById(id), e = document.getElementById(eyeId);
-    f.type = f.type === 'password' ? 'text' : 'password';
-    e.className = f.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
-}
-</script>
 </body>
 </html>

@@ -116,7 +116,8 @@ function getCurrentUser(): ?array {
 }
 
 function login(string $usernameOrEmail, string $password): array {
-    $stmt = getDB()->prepare('SELECT id,username,email,password,role,status FROM users WHERE username=? OR email=?');
+    $usernameOrEmail = trim($usernameOrEmail);
+    $stmt = getDB()->prepare('SELECT id,username,email,password,role,status FROM users WHERE LOWER(username)=LOWER(?) OR LOWER(email)=LOWER(?)');
     $stmt->execute([$usernameOrEmail, $usernameOrEmail]);
     $user = $stmt->fetch();
     if (!$user || !password_verify($password, $user['password'])) {
@@ -142,6 +143,9 @@ function logout(): void {
 }
 
 function register(string $username, string $email, string $password, string $fullName = ''): array {
+    $username = trim($username);
+    $email = trim($email);
+    $fullName = trim($fullName);
     if (!preg_match('/^[a-zA-Z0-9_]{3,50}$/', $username)) {
         return ['success' => false, 'message' => 'Tên đăng nhập 3-50 ký tự, chỉ chứa chữ cái, số và dấu _'];
     }
@@ -152,7 +156,7 @@ function register(string $username, string $email, string $password, string $ful
         return ['success' => false, 'message' => 'Mật khẩu phải ít nhất 6 ký tự.'];
     }
     $pdo  = getDB();
-    $stmt = $pdo->prepare('SELECT id FROM users WHERE username=? OR email=?');
+    $stmt = $pdo->prepare('SELECT id FROM users WHERE LOWER(username)=LOWER(?) OR LOWER(email)=LOWER(?)');
     $stmt->execute([$username, $email]);
     if ($stmt->fetch()) {
         return ['success' => false, 'message' => 'Tên đăng nhập hoặc email đã được sử dụng.'];
