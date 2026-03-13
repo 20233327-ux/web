@@ -187,3 +187,45 @@ INSERT IGNORE INTO `ratings` (`user_id`, `movie_id`, `rating`) VALUES
 (2, 1, 9),
 (2, 3, 8),
 (2, 5, 9);
+
+-- Chuẩn hóa nguồn video demo để tránh lỗi YouTube "Video unavailable"
+UPDATE `movies`
+SET
+  `video_type` = 'url',
+  `video_path` = CASE `slug`
+    WHEN 'avengers-cuoc-chien-vo-cuc' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+    WHEN 'chang-trai-nam-ay' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+    WHEN 'spider-man-khong-co-nha' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'
+    WHEN 'joker' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4'
+    WHEN 'inception' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
+    WHEN 'ky-di-o-thu-ba' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'
+    WHEN 'titanic' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4'
+    WHEN 'bua-tiec-trac-tao' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4'
+    WHEN 'war-horse' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'
+    WHEN 'truy-tim-hanh-phuc' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4'
+    WHEN 'mission-impossible-fallout' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4'
+    WHEN 'interstellar' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4'
+    WHEN 'wonder' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'
+    WHEN 'forrest-gump' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+    WHEN 'the-notebook' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+    WHEN 'crazy-rich-asians' THEN 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'
+    ELSE `video_path`
+  END
+WHERE `slug` IN (
+  'avengers-cuoc-chien-vo-cuc',
+  'chang-trai-nam-ay',
+  'spider-man-khong-co-nha',
+  'joker',
+  'inception',
+  'ky-di-o-thu-ba',
+  'titanic',
+  'bua-tiec-trac-tao',
+  'war-horse',
+  'truy-tim-hanh-phuc',
+  'mission-impossible-fallout',
+  'interstellar',
+  'wonder',
+  'forrest-gump',
+  'the-notebook',
+  'crazy-rich-asians'
+);
