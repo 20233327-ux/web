@@ -65,24 +65,27 @@ a:hover { color: var(--red-dark); }
 .dropdown-dark .dropdown-item:hover { background: var(--bg2); color: #fff; }
 
 /* ── Hero / Banner ─────────────────────────────────────────── */
-.hero-section { position: relative; height: 85vh; min-height: 500px; overflow: hidden; }
+.hero-section { position: relative; height: 78vh; min-height: 460px; overflow: hidden; }
 .hero-bg {
   position: absolute; inset: 0;
   background-size: cover;
-  background-position: center top;
-  transform: scale(1.02);
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: scale(1.03);
+  filter: brightness(.72) saturate(1.05);
   transition: transform 8s ease;
 }
 .carousel-item.active .hero-bg { transform: scale(1); }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.15) 100%),
-              linear-gradient(0deg,   rgba(20,20,20,1) 0%, transparent 40%);
+  background: linear-gradient(92deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.62) 45%, rgba(0,0,0,.22) 100%),
+              linear-gradient(0deg, rgba(20,20,20,1) 0%, rgba(20,20,20,.45) 45%, transparent 70%);
 }
 .hero-content {
   position: relative; z-index: 2;
-  padding-top: 18vh;
-  max-width: 650px;
+  padding-top: clamp(90px, 16vh, 150px);
+  padding-bottom: 92px;
+  max-width: 620px;
 }
 .hero-title {
   font-size: clamp(1.8rem, 4vw, 3rem);
@@ -103,6 +106,32 @@ a:hover { color: var(--red-dark); }
 }
 .hero-info { color: rgba(255,255,255,.75); font-size: .9rem; }
 .hero-meta { margin-bottom: .5rem; }
+
+#heroCarousel .carousel-indicators {
+  margin: 0;
+  bottom: 18px;
+  justify-content: flex-start;
+  padding-left: clamp(14px, 7vw, 120px);
+  gap: 8px;
+  z-index: 3;
+}
+#heroCarousel .carousel-indicators button {
+  width: 26px;
+  height: 4px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.45);
+}
+#heroCarousel .carousel-indicators .active {
+  background: var(--red);
+}
+
+@media (max-width: 768px) {
+  .hero-section { height: 72vh; min-height: 420px; }
+  .hero-content { padding-top: 96px; padding-bottom: 76px; max-width: 100%; }
+  .hero-desc { -webkit-line-clamp: 2; line-clamp: 2; font-size: .9rem; }
+  #heroCarousel .carousel-indicators { bottom: 12px; padding-left: 16px; }
+}
 
 /* ── Section titles ────────────────────────────────────────── */
 .section-title {
