@@ -54,17 +54,20 @@ $safeEmbed = $videoType === 'embed' ? sanitizeEmbedCode((string)$videoPath) : ''
 
                 <?php elseif ($videoType === 'file' && $videoPath): ?>
                 <!-- Uploaded file streamed via PHP -->
-                <video id="player" playsinline controls crossorigin>
+                <video id="player" playsinline controls preload="metadata">
                     <source src="<?= BASE_URL ?>/stream.php?id=<?= $id ?><?= $activeEpisode ? '&episode=' . (int)$activeEpisode['id'] : '' ?>" type="video/mp4">
                     Trình duyệt của bạn không hỗ trợ video HTML5.
                 </video>
 
                 <?php elseif ($videoType === 'url' && $videoPath): ?>
                 <!-- Direct URL -->
-                <video id="player" playsinline controls crossorigin>
-                    <source src="<?= sanitize($videoPath) ?>">
+                <video id="player" playsinline controls preload="metadata">
+                    <source src="<?= sanitize($videoPath) ?>" type="video/mp4">
                     Trình duyệt của bạn không hỗ trợ video HTML5.
                 </video>
+                <div class="mt-2 small text-muted">
+                    Nếu video không tự phát, <a href="<?= sanitize($videoPath) ?>" target="_blank" rel="noopener" class="text-danger">mở trực tiếp nguồn video</a>.
+                </div>
 
                 <?php else: ?>
                 <div class="d-flex align-items-center justify-content-center bg-dark h-100">
