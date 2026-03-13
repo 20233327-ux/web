@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ── Init Plyr if not already done on watch.php ────────────
     const playerEl = document.getElementById('player');
-    if (playerEl && typeof Plyr !== 'undefined' && !playerEl._plyr) {
+    const skipPlyr = playerEl && playerEl.dataset && playerEl.dataset.noPlyr === '1';
+    if (playerEl && !skipPlyr && typeof Plyr !== 'undefined' && !playerEl._plyr) {
         playerEl._plyr = new Plyr('#player', {
             controls: ['play-large','play','progress','current-time','duration','mute','volume','settings','pip','airplay','fullscreen'],
             settings: ['quality','speed','loop'],

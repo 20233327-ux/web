@@ -54,14 +54,14 @@ $safeEmbed = $videoType === 'embed' ? sanitizeEmbedCode((string)$videoPath) : ''
 
                 <?php elseif ($videoType === 'file' && $videoPath): ?>
                 <!-- Uploaded file streamed via PHP -->
-                <video id="player" playsinline controls preload="metadata">
+                <video id="player" data-no-plyr="1" playsinline controls preload="metadata">
                     <source src="<?= BASE_URL ?>/stream.php?id=<?= $id ?><?= $activeEpisode ? '&episode=' . (int)$activeEpisode['id'] : '' ?>" type="video/mp4">
                     Trình duyệt của bạn không hỗ trợ video HTML5.
                 </video>
 
                 <?php elseif ($videoType === 'url' && $videoPath): ?>
                 <!-- Direct URL -->
-                <video id="player" playsinline controls preload="metadata">
+                <video id="player" data-no-plyr="1" playsinline controls preload="metadata">
                     <source src="<?= sanitize($videoPath) ?>" type="video/mp4">
                     Trình duyệt của bạn không hỗ trợ video HTML5.
                 </video>
@@ -129,17 +129,5 @@ $safeEmbed = $videoType === 'embed' ? sanitizeEmbedCode((string)$videoPath) : ''
 </main>
 
 <?php
-$extraScripts = '
-<script>
-// Init Plyr for HTML5 video types
-const playerEl = document.getElementById("player");
-if (playerEl) {
-    const player = new Plyr("#player", {
-        controls: ["play-large","play","progress","current-time","duration","mute","volume","captions","settings","pip","airplay","fullscreen"],
-        settings: ["quality","speed","loop"],
-        speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] }
-    });
-}
-</script>';
 include __DIR__ . '/includes/footer.php';
 ?>
