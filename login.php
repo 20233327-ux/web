@@ -45,7 +45,23 @@ $pageTitle = 'Đăng nhập';
     <title>Đăng nhập - <?= SITE_NAME ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
+        <link href="<?= BASE_URL ?>/assets/css/style.css?v=20260314-2" rel="stylesheet">
+        <style>
+            /* Fallback: always show and allow typing in login inputs */
+            .auth-card input[type="text"],
+            .auth-card input[type="password"] {
+                display: block !important;
+                width: 100% !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                background: #1a1a1a !important;
+                border: 2px solid #555 !important;
+                color: #fff !important;
+                min-height: 46px !important;
+                padding: 12px 14px !important;
+            }
+        </style>
 </head>
 <body class="auth-page">
 <div class="auth-bg"></div>
