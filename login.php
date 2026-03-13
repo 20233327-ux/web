@@ -15,6 +15,20 @@ if (isLoggedIn()) {
 
 $error = '';
 $csrf  = generateCsrfToken();
+$debugInfo = null;
+
+if (isset($_GET['debug']) && $_GET['debug'] === '1') {
+    try {
+        $pdo = getDB();
+        $dbName = (string)$pdo->query('SELECT DATABASE()')->fetchColumn();
+        $stmtDbg = $pdo->prepare('SELECT COUNT(*) FROM users WHERE username=?');
+        $stmtDbg->execute(['admin']);
+        $adminCount = (int)$stmtDbg->fetchColumn();
+        $debugInfo = 'DB: ' . $dbName . ' | admin_rows: ' . $adminCount;
+    } catch (Throwable $e) {
+        $debugInfo = 'DEBUG ERROR: ' . $e->getMessage();
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $submittedToken = $_POST['csrf_token'] ?? '';
@@ -128,6 +142,9 @@ $pageTitle = 'Đăng nhập';
         <?php endif; ?>
         <?php if (!empty($_GET['error']) && $_GET['error'] === 'banned'): ?>
         <div class="alert alert-warning">Tài khoản của bạn đã bị khóa.</div>
+        <?php endif; ?>
+        <?php if ($debugInfo !== null): ?>
+        <div class="alert alert-warning"><?= e($debugInfo) ?></div>
         <?php endif; ?>
         <form method="POST" novalidate>
             <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
