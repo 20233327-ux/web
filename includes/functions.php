@@ -230,7 +230,19 @@ function timeAgo(string $dt): string {
 function getThumbnailUrl(?string $thumb): string {
     if (empty($thumb)) return BASE_URL.'/assets/images/no-thumb.svg';
     if (str_starts_with($thumb,'http://') || str_starts_with($thumb,'https://')) return $thumb;
-    return BASE_URL.'/uploads/thumbnails/'.$thumb;
+
+    $thumb = ltrim($thumb, '/');
+    $encodePath = static function (string $path): string {
+        $parts = array_map('rawurlencode', explode('/', $path));
+        return implode('/', $parts);
+    };
+
+    // Support explicit project-relative paths such as assets/images/*.jpg
+    if (str_contains($thumb, '/')) {
+        return BASE_URL . '/' . $encodePath($thumb);
+    }
+
+    return BASE_URL . '/uploads/thumbnails/' . rawurlencode($thumb);
 }
 function getYoutubeId(string $url): ?string {
     preg_match('/(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $url, $m);

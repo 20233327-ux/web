@@ -229,3 +229,43 @@ WHERE `slug` IN (
   'the-notebook',
   'crazy-rich-asians'
 );
+
+-- Gan poster tu bo anh da upload trong assets/images
+UPDATE `movies`
+SET `thumbnail` = CASE `slug`
+  WHEN 'avengers-cuoc-chien-vo-cuc' THEN 'assets/images/Avengers.jpg'
+  WHEN 'chang-trai-nam-ay' THEN 'assets/images/ảnh 2.jpg'
+  WHEN 'spider-man-khong-co-nha' THEN 'assets/images/ảnh 12.jpg'
+  WHEN 'joker' THEN 'assets/images/ảnh 5.jpg'
+  WHEN 'inception' THEN 'assets/images/ảnh 6.jpg'
+  WHEN 'ky-di-o-thu-ba' THEN 'assets/images/ảnh 7.jpg'
+  WHEN 'titanic' THEN 'assets/images/ảnh 8.jpg'
+  WHEN 'bua-tiec-trac-tao' THEN 'assets/images/ảnh 10.jpg'
+  WHEN 'war-horse' THEN 'assets/images/ảnh 9.jpg'
+  WHEN 'truy-tim-hanh-phuc' THEN 'assets/images/ảnh 11.jpg'
+  WHEN 'mission-impossible-fallout' THEN 'assets/images/ảnh 3.jpg'
+  WHEN 'interstellar' THEN 'assets/images/ảnh 4.jpg'
+  WHEN 'wonder' THEN 'assets/images/ảnh 10.jpg'
+  WHEN 'forrest-gump' THEN 'assets/images/ảnh 9.jpg'
+  WHEN 'the-notebook' THEN 'assets/images/ảnh 8.jpg'
+  WHEN 'crazy-rich-asians' THEN 'assets/images/ảnh 2.jpg'
+  ELSE `thumbnail`
+END
+WHERE `slug` IN (
+  'avengers-cuoc-chien-vo-cuc',
+  'chang-trai-nam-ay',
+  'spider-man-khong-co-nha',
+  'joker',
+  'inception',
+  'ky-di-o-thu-ba',
+  'titanic',
+  'bua-tiec-trac-tao',
+  'war-horse',
+  'truy-tim-hanh-phuc',
+  'mission-impossible-fallout',
+  'interstellar',
+  'wonder',
+  'forrest-gump',
+  'the-notebook',
+  'crazy-rich-asians'
+);
