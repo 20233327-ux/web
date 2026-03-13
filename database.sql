@@ -5,6 +5,11 @@
 
 -- InfinityFree/phpMyAdmin: Chon DB o panel ben trai roi import file nay.
 -- Khong can (va khong nen) CREATE DATABASE/USE trong goi shared hosting.
+-- NOTE: Nếu import lần thứ 2, hãy xóa các phim cũ bằng cách chạy trước:
+-- DELETE FROM `movie_episodes`;
+-- DELETE FROM `ratings`;
+-- DELETE FROM `movies`;
+-- Sau đó import file này
 
 -- Bảng người dùng
 CREATE TABLE IF NOT EXISTS `users` (
@@ -118,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Dữ liệu mẫu
 -- ============================================================
 
-INSERT INTO `genres` (`name`, `slug`) VALUES
+INSERT IGNORE INTO `genres` (`name`, `slug`) VALUES
 ('Hành động', 'hanh-dong'),
 ('Tình cảm', 'tinh-cam'),
 ('Hài hước', 'hai-huoc'),
@@ -134,7 +139,7 @@ INSERT INTO `genres` (`name`, `slug`) VALUES
 ('Âm nhạc', 'am-nhac'),
 ('Gia đình', 'gia-dinh');
 
-INSERT INTO `countries` (`name`, `slug`) VALUES
+INSERT IGNORE INTO `countries` (`name`, `slug`) VALUES
 ('Việt Nam', 'viet-nam'),
 ('Mỹ', 'my'),
 ('Hàn Quốc', 'han-quoc'),
@@ -149,7 +154,7 @@ INSERT INTO `countries` (`name`, `slug`) VALUES
 -- Tài khoản mặc định (xem setup.php để tạo tài khoản với mật khẩu tùy chỉnh)
 -- Admin: admin / Admin@123
 -- User: demo / User@123
-INSERT INTO `users` (`username`, `email`, `password`, `full_name`, `role`) VALUES
+INSERT IGNORE INTO `users` (`username`, `email`, `password`, `full_name`, `role`) VALUES
 ('admin', 'admin@phimweb.vn', '$2y$10$8K1p/a0dL1LXMIgoEDFrwOfMQkLmCkFbfJRmMuvh2xPvj4YcAIoHS', 'Quản trị viên', 'admin'),
 ('demo', 'demo@phimweb.vn', '$2y$10$TKh8H1.PFbuS35e5lg0oMuSd1oGAEdGzMkB8b.VXdABvKbcmGEppu', 'Người dùng Demo', 'user');
 -- Password: Admin@123 và User@123
