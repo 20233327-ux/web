@@ -153,3 +153,22 @@ INSERT INTO `users` (`username`, `email`, `password`, `full_name`, `role`) VALUE
 ('admin', 'admin@phimweb.vn', '$2y$10$8K1p/a0dL1LXMIgoEDFrwOfMQkLmCkFbfJRmMuvh2xPvj4YcAIoHS', 'Quản trị viên', 'admin'),
 ('demo', 'demo@phimweb.vn', '$2y$10$TKh8H1.PFbuS35e5lg0oMuSd1oGAEdGzMkB8b.VXdABvKbcmGEppu', 'Người dùng Demo', 'user');
 -- Password: Admin@123 và User@123
+
+-- Phim mẫu
+INSERT INTO `movies` (`title`, `slug`, `original_title`, `description`, `genre_id`, `country_id`, `year`, `director`, `cast_members`, `trailer_url`, `video_type`, `video_path`, `duration`, `quality`, `language`, `status`, `featured`) VALUES
+('Avengers: Cuộc Chiến Vô Cực', 'avengers-cuoc-chien-vo-cuc', 'Avengers: Infinity War', 'Các siêu anh hùng Avengers phải hợp tác để ngăn chặn kẻ ác mộng Thanos.', 1, 2, 2018, 'Anthony Russo, Joe Russo', 'Robert Downey Jr., Chris Evans, Tom Holland', 'https://www.youtube.com/embed/6ZfuNTqWZN0', 'youtube', NULL, ' 149 phút', 'Full HD', 'Vietsub', 'active', 1),
+('Chàng Trai Năm Ấy', 'chang-trai-nam-ay', 'The Boy', 'Một cô gái trẻ được thuê để chăm sóc một cậu bé bí ẩn và phát hiện ra những bí mật kinh hoàng.', 4, 9, 2016, 'William Brent Bell', 'Lauren Cohan, Rupert Evans, James Russell', NULL, 'url', 'https://example.com/the-boy.mp4', '97 phút', 'Full HD', 'Vietsub', 'active', 0),
+('Spider-Man: Không Có Nhà', 'spider-man-khong-co-nha', 'Spider-Man: No Way Home', 'Peter Parker phải đối mặt với các sở hữu quyền lực từ những vũ trụ song song.', 5, 2, 2021, 'Jon Watts', 'Tom Holland, Zendaya, Tobey Maguire', 'https://www.youtube.com/embed/JfVOs4VSpmA', 'youtube', NULL, '148 phút', 'Full HD', 'Vietsub', 'active', 1),
+('Joker', 'joker', 'Joker', 'Câu chuyện về sự biến đổi của một người đàn ông tẻ nhạt thành kẻ cuồng loạn.', 9, 2, 2019, 'Todd Phillips', 'Joaquin Phoenix, Robert De Niro, Zazie Beetz', NULL, 'youtube', 'https://www.youtube.com/embed/t433PEQvMmc', '122 phút', '4K', 'Vietsub', 'active', 0),
+('Inception', 'inception', 'Inception', 'Một tên cướp tinh vi được giao nhiệm vụ thực hiện điều bất khả thi.', 5, 2, 2010, 'Christopher Nolan', 'Leonardo DiCaprio, Marion Cotillard, Tom Hardy', NULL, 'youtube', 'https://www.youtube.com/embed/8ZcmTl_1ER8', '148 phút', 'Full HD', 'Vietsub', 'active', 1),
+('Kỳ Dị Ở Thứ 3', 'ky-di-o-thu-ba', 'Kung Fu Panda', 'Một chú gấu trúc vô dụng được chọn để trở thành chiến sĩ của thôn.', 6, 2, 2008, 'Mark Osborne, John Stevenson', 'Jack Black, Dustin Hoffman, Angelina Jolie', NULL, 'youtube', 'https://www.youtube.com/embed/sTsHZI_SEzw', '92 phút', 'Full HD', 'Vietsub', 'active', 0);
+
+-- Tập phim mẫu (cho Kung Fu Panda - series)
+INSERT INTO `movie_episodes` (`movie_id`, `episode_number`, `title`, `video_type`, `video_path`, `duration`, `status`) VALUES
+(6, 1, 'Tập 1: Chiến sĩ Trong Mơ', 'youtube', 'https://www.youtube.com/embed/sTsHZI_SEzw', '92 phút', 'active');
+
+-- Dữ liệu đánh giá mẫu
+INSERT INTO `ratings` (`user_id`, `movie_id`, `rating`) VALUES
+(2, 1, 9),
+(2, 3, 8),
+(2, 5, 9);
