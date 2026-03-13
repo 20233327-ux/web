@@ -160,13 +160,13 @@ INSERT IGNORE INTO `users` (`username`, `email`, `password`, `full_name`, `role`
 -- Password: Admin@123 và User@123
 
 -- Phim mẫu
-INSERT INTO `movies` (`title`, `slug`, `original_title`, `description`, `genre_id`, `country_id`, `year`, `director`, `cast_members`, `trailer_url`, `video_type`, `video_path`, `duration`, `quality`, `language`, `status`, `featured`) VALUES
+INSERT IGNORE INTO `movies` (`title`, `slug`, `original_title`, `description`, `genre_id`, `country_id`, `year`, `director`, `cast_members`, `trailer_url`, `video_type`, `video_path`, `duration`, `quality`, `language`, `status`, `featured`) VALUES
 ('Avengers: Cuộc Chiến Vô Cực', 'avengers-cuoc-chien-vo-cuc', 'Avengers: Infinity War', 'Các siêu anh hùng Avengers phải hợp tác để ngăn chặn kẻ ác mộng Thanos.', 1, 2, 2018, 'Anthony Russo, Joe Russo', 'Robert Downey Jr., Chris Evans, Tom Holland', 'https://www.youtube.com/embed/6ZfuNTqWZN0', 'youtube', NULL, ' 149 phút', 'Full HD', 'Vietsub', 'active', 1),
 ('Chàng Trai Năm Ấy', 'chang-trai-nam-ay', 'The Boy', 'Một cô gái trẻ được thuê để chăm sóc một cậu bé bí ẩn và phát hiện ra những bí mật kinh hoàng.', 4, 9, 2016, 'William Brent Bell', 'Lauren Cohan, Rupert Evans, James Russell', NULL, 'url', 'https://example.com/the-boy.mp4', '97 phút', 'Full HD', 'Vietsub', 'active', 0),
 ('Spider-Man: Không Có Nhà', 'spider-man-khong-co-nha', 'Spider-Man: No Way Home', 'Peter Parker phải đối mặt với các sở hữu quyền lực từ những vũ trụ song song.', 5, 2, 2021, 'Jon Watts', 'Tom Holland, Zendaya, Tobey Maguire', 'https://www.youtube.com/embed/JfVOs4VSpmA', 'youtube', NULL, '148 phút', 'Full HD', 'Vietsub', 'active', 1),
 ('Joker', 'joker', 'Joker', 'Câu chuyện về sự biến đổi của một người đàn ông tẻ nhạt thành kẻ cuồng loạn.', 9, 2, 2019, 'Todd Phillips', 'Joaquin Phoenix, Robert De Niro, Zazie Beetz', NULL, 'youtube', 'https://www.youtube.com/embed/t433PEQvMmc', '122 phút', '4K', 'Vietsub', 'active', 0),
 ('Inception', 'inception', 'Inception', 'Một tên cướp tinh vi được giao nhiệm vụ thực hiện điều bất khả thi.', 5, 2, 2010, 'Christopher Nolan', 'Leonardo DiCaprio, Marion Cotillard, Tom Hardy', NULL, 'youtube', 'https://www.youtube.com/embed/8ZcmTl_1ER8', '148 phút', 'Full HD', 'Vietsub', 'active', 1),
-('Kỳ Dị Ở Thứ 3', 'ky-di-o-thu-ba', 'Kung Fu Panda', 'Một chú gấu trúc vô dụng được chọn để trở thành chiến sĩ của thôn.', 6, 2, 2008, 'Mark Osborne, John Stevenson', 'Jack Black, Dustin Hoffman, Angelina Jolie', NULL, 'youtube', 'https://www.youtube.com/embed/sTsHZI_SEzw', '92 phút', 'Full HD', 'Vietsub', 'active', 0);
+('Kỳ Dị Ở Thứ 3', 'ky-di-o-thu-ba', 'Kung Fu Panda', 'Một chú gấu trúc vô dụng được chọn để trở thành chiến sĩ của thôn.', 6, 2, 2008, 'Mark Osborne, John Stevenson', 'Jack Black, Dustin Hoffman, Angelina Jolie', NULL, 'youtube', 'https://www.youtube.com/embed/sTsHZI_SEzw', '92 phút', 'Full HD', 'Vietsub', 'active', 0),
 ('Titanic', 'titanic', 'Titanic', 'Một tình yêu giữa hai người thuộc các tầng lớp xã hội khác nhau trên chiếc tàu "bất khả xâm phạm".', 2, 2, 1997, 'James Cameron', 'Leonardo DiCaprio, Kate Winslet, Billy Zane', NULL, 'youtube', 'https://www.youtube.com/embed/CHYggFEqXQ4', '194 phút', 'Full HD', 'Vietsub', 'active', 0),
 ('Bữa Tiệc Trác Táo', 'bua-tiec-trac-tao', 'The Hangover', 'Ba người bạn thức dậy mà không nhớ gì về đêm hôm trước và phải tìm kiếm bạn mình bị mất.', 3, 2, 2009, 'Todd Phillips', 'Bradley Cooper, Ed Helms, Zach Galifianakis', NULL, 'youtube', 'https://www.youtube.com/embed/tmeJBRiAqVE', '100 phút', 'Full HD', 'Vietsub', 'active', 0),
 ('War Horse', 'war-horse', 'War Horse', 'Câu chuyện về một chú ngựa và những người bạn của nó trong Thế chiến I.', 11, 9, 2011, 'Steven Spielberg', 'Jeremy Irvine, Peter Mullan, Emily Watson', NULL, 'youtube', 'https://www.youtube.com/embed/Sw0E6lHRy-I', '146 phút', 'Full HD', 'Vietsub', 'active', 1),
@@ -179,11 +179,11 @@ INSERT INTO `movies` (`title`, `slug`, `original_title`, `description`, `genre_i
 ('Crazy Rich Asians', 'crazy-rich-asians', 'Crazy Rich Asians', 'Một cô gái người Mỹ gốc Á được mờ tối bởi sự giàu có và công khai tham dự của gia đình bạn trai.', 3, 2, 2018, 'Jon M. Chu', 'Constance Wu, Henry Golding, Michelle Yeoh', NULL, 'youtube', 'https://www.youtube.com/embed/ZQ-YX-5bAs0', '120 phút', 'Full HD', 'Vietsub', 'active', 0);
 
 -- Tập phim mẫu (cho Kung Fu Panda - series)
-INSERT INTO `movie_episodes` (`movie_id`, `episode_number`, `title`, `video_type`, `video_path`, `duration`, `status`) VALUES
+INSERT IGNORE INTO `movie_episodes` (`movie_id`, `episode_number`, `title`, `video_type`, `video_path`, `duration`, `status`) VALUES
 (6, 1, 'Tập 1: Chiến sĩ Trong Mơ', 'youtube', 'https://www.youtube.com/embed/sTsHZI_SEzw', '92 phút', 'active');
 
 -- Dữ liệu đánh giá mẫu
-INSERT INTO `ratings` (`user_id`, `movie_id`, `rating`) VALUES
+INSERT IGNORE INTO `ratings` (`user_id`, `movie_id`, `rating`) VALUES
 (2, 1, 9),
 (2, 3, 8),
 (2, 5, 9);
