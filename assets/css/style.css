@@ -253,6 +253,23 @@ a:hover { color: var(--red-dark); }
 .auth-input:invalid:not(:placeholder-shown) { border-color: #dc3545 !important; }
 .auth-input-icon { background: #2a2a2a !important; border-color: #444 !important; color: #888 !important; }
 
+/* Keep auth inputs usable even if Bootstrap input-group styles fail to load */
+.auth-card .input-group {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+.auth-card .input-group .input-group-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+}
+.auth-card .input-group .auth-input {
+  flex: 1 1 auto;
+  width: 1%;
+}
+
 /* Login form labels */
 .auth-card .form-label {
   color: #ddd !important;
