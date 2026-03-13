@@ -72,21 +72,12 @@ $pageTitle = 'Đăng nhập';
             <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
             <div class="mb-3">
                 <label class="form-label text-muted">Tên đăng nhập hoặc Email</label>
-                <div class="input-group">
-                    <span class="input-group-text auth-input-icon"><i class="fas fa-user"></i></span>
-                    <input type="text" name="username" class="form-control auth-input" placeholder="Nhập tên đăng nhập..."
-                           value="<?= sanitize($_POST['username'] ?? '') ?>" required autofocus>
-                </div>
+                <input type="text" name="username" class="form-control auth-input auth-input-plain" placeholder="Nhập tên đăng nhập..."
+                       value="<?= sanitize($_POST['username'] ?? '') ?>" required autofocus>
             </div>
             <div class="mb-4">
                 <label class="form-label text-muted">Mật khẩu</label>
-                <div class="input-group">
-                    <span class="input-group-text auth-input-icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" name="password" class="form-control auth-input" placeholder="Nhập mật khẩu..." required id="passwordField">
-                    <button type="button" class="input-group-text auth-input-icon" onclick="togglePass()">
-                        <i class="fas fa-eye" id="passEye"></i>
-                    </button>
-                </div>
+                <input type="password" name="password" class="form-control auth-input auth-input-plain" placeholder="Nhập mật khẩu..." required id="passwordField">
             </div>
             <button type="submit" class="btn btn-danger w-100 py-2 fw-bold">
                 <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
@@ -99,13 +90,5 @@ $pageTitle = 'Đăng nhập';
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-function togglePass() {
-    const f = document.getElementById('passwordField');
-    const e = document.getElementById('passEye');
-    if (f.type === 'password') { f.type = 'text'; e.className = 'fas fa-eye-slash'; }
-    else { f.type = 'password'; e.className = 'fas fa-eye'; }
-}
-</script>
 </body>
 </html>

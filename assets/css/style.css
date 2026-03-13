@@ -252,6 +252,11 @@ a:hover { color: var(--red-dark); }
 }
 .auth-input:invalid:not(:placeholder-shown) { border-color: #dc3545 !important; }
 .auth-input-icon { background: #2a2a2a !important; border-color: #444 !important; color: #888 !important; }
+.auth-input-plain {
+  display: block !important;
+  width: 100% !important;
+  pointer-events: auto !important;
+}
 
 /* Keep auth inputs usable even if Bootstrap input-group styles fail to load */
 .auth-card .input-group {
