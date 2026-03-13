@@ -1,6 +1,12 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
 
+if (!function_exists('e')) {
+    function e(string $value): string {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+}
+
 // Redirect if already logged in
 if (isLoggedIn()) {
     header('Location: ' . BASE_URL . '/index.php');
@@ -107,7 +113,7 @@ $pageTitle = 'Đăng nhập';
     <h1><?= SITE_NAME ?></h1>
     <div class="sub">Đăng nhập</div>
         <?php if ($error): ?>
-        <div class="alert alert-danger"><?= sanitize($error) ?></div>
+        <div class="alert alert-danger"><?= e($error) ?></div>
         <?php endif; ?>
         <?php if (!empty($_GET['registered'])): ?>
         <div class="alert alert-success">Đăng ký thành công! Vui lòng đăng nhập.</div>
@@ -118,7 +124,7 @@ $pageTitle = 'Đăng nhập';
         <form method="POST" novalidate>
             <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
             <label for="username">Tên đăng nhập hoặc Email</label>
-            <input id="username" type="text" name="username" placeholder="Nhập tên đăng nhập..." value="<?= sanitize($_POST['username'] ?? '') ?>" required autofocus autocomplete="username">
+            <input id="username" type="text" name="username" placeholder="Nhập tên đăng nhập..." value="<?= e($_POST['username'] ?? '') ?>" required autofocus autocomplete="username">
 
             <label for="password">Mật khẩu</label>
             <input id="password" type="password" name="password" placeholder="Nhập mật khẩu..." required autocomplete="current-password">

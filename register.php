@@ -1,6 +1,12 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
 
+if (!function_exists('e')) {
+    function e(string $value): string {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+}
+
 if (isLoggedIn()) {
     header('Location: ' . BASE_URL . '/index.php');
     exit;
@@ -102,18 +108,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1><?= SITE_NAME ?></h1>
     <div class="sub">Tạo tài khoản</div>
         <?php if ($error): ?>
-        <div class="alert alert-danger"><?= sanitize($error) ?></div>
+        <div class="alert alert-danger"><?= e($error) ?></div>
         <?php endif; ?>
         <form method="POST" novalidate>
             <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
             <label for="username">Tên đăng nhập *</label>
-            <input id="username" type="text" name="username" placeholder="Chỉ chữ cái, số, dấu _" value="<?= sanitize($_POST['username'] ?? '') ?>" required autocomplete="username">
+            <input id="username" type="text" name="username" placeholder="Chỉ chữ cái, số, dấu _" value="<?= e($_POST['username'] ?? '') ?>" required autocomplete="username">
 
             <label for="full_name">Họ và tên</label>
-            <input id="full_name" type="text" name="full_name" placeholder="Không bắt buộc" value="<?= sanitize($_POST['full_name'] ?? '') ?>" autocomplete="name">
+            <input id="full_name" type="text" name="full_name" placeholder="Không bắt buộc" value="<?= e($_POST['full_name'] ?? '') ?>" autocomplete="name">
 
             <label for="email">Email *</label>
-            <input id="email" type="email" name="email" placeholder="example@email.com" value="<?= sanitize($_POST['email'] ?? '') ?>" required autocomplete="email">
+            <input id="email" type="email" name="email" placeholder="example@email.com" value="<?= e($_POST['email'] ?? '') ?>" required autocomplete="email">
 
             <label for="password">Mật khẩu *</label>
             <input id="password" type="password" name="password" placeholder="Tối thiểu 6 ký tự" required autocomplete="new-password">
