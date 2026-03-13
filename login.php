@@ -17,8 +17,10 @@ $error = '';
 $csrf  = generateCsrfToken();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!verifyCsrfToken($_POST['csrf_token'] ?? '')) {
-        $error = 'Yêu cầu không hợp lệ. Vui lòng thử lại.';
+    $submittedToken = $_POST['csrf_token'] ?? '';
+    $sessionToken = $_SESSION['csrf_token'] ?? '';
+    if ($sessionToken !== '' && !hash_equals($sessionToken, (string)$submittedToken)) {
+        $error = 'Phiên đăng nhập đã hết hạn. Vui lòng thử lại.';
     } else {
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['password'] ?? '';
