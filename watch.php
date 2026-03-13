@@ -65,9 +65,6 @@ $safeEmbed = $videoType === 'embed' ? sanitizeEmbedCode((string)$videoPath) : ''
                     <source src="<?= sanitize($videoPath) ?>" type="video/mp4">
                     Trình duyệt của bạn không hỗ trợ video HTML5.
                 </video>
-                <div class="mt-2 small text-muted">
-                    Nếu video không tự phát, <a href="<?= sanitize($videoPath) ?>" target="_blank" rel="noopener" class="text-danger">mở trực tiếp nguồn video</a>.
-                </div>
 
                 <?php else: ?>
                 <div class="d-flex align-items-center justify-content-center bg-dark h-100">
@@ -79,6 +76,11 @@ $safeEmbed = $videoType === 'embed' ? sanitizeEmbedCode((string)$videoPath) : ''
                 </div>
                 <?php endif; ?>
             </div>
+            <?php if ($videoType === 'url' && $videoPath): ?>
+            <div class="mt-2 small text-muted">
+                Nếu video không tự phát, <a href="<?= sanitize($videoPath) ?>" target="_blank" rel="noopener" class="text-danger">mở trực tiếp nguồn video</a>.
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 
