@@ -3,8 +3,8 @@
 -- Database Schema
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS `phimweb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `phimweb`;
+-- InfinityFree/phpMyAdmin: Chon DB o panel ben trai roi import file nay.
+-- Khong can (va khong nen) CREATE DATABASE/USE trong goi shared hosting.
 
 -- Bảng người dùng
 CREATE TABLE IF NOT EXISTS `users` (
@@ -27,6 +27,13 @@ CREATE TABLE IF NOT EXISTS `genres` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Bảng quốc gia
+CREATE TABLE IF NOT EXISTS `countries` (
+  `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(100) NOT NULL,
+  `slug` VARCHAR(100) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Bảng tập phim (cho series)
 CREATE TABLE IF NOT EXISTS `movie_episodes` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -40,13 +47,6 @@ CREATE TABLE IF NOT EXISTS `movie_episodes` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY `unique_episode_number` (`movie_id`, `episode_number`),
   FOREIGN KEY (`movie_id`) REFERENCES `movies`(`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Bảng quốc gia
-CREATE TABLE IF NOT EXISTS `countries` (
-  `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `name` VARCHAR(100) NOT NULL,
-  `slug` VARCHAR(100) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Bảng phim
