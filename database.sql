@@ -34,21 +34,6 @@ CREATE TABLE IF NOT EXISTS `countries` (
   `slug` VARCHAR(100) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Bảng tập phim (cho series)
-CREATE TABLE IF NOT EXISTS `movie_episodes` (
-  `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `movie_id` INT UNSIGNED NOT NULL,
-  `episode_number` INT UNSIGNED NOT NULL,
-  `title` VARCHAR(255) DEFAULT NULL,
-  `video_type` ENUM('file', 'url', 'youtube') NOT NULL DEFAULT 'url',
-  `video_path` TEXT NOT NULL,
-  `duration` VARCHAR(20) DEFAULT NULL,
-  `status` ENUM('active', 'inactive') DEFAULT 'active',
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY `unique_episode_number` (`movie_id`, `episode_number`),
-  FOREIGN KEY (`movie_id`) REFERENCES `movies`(`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- Bảng phim
 CREATE TABLE IF NOT EXISTS `movies` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -75,8 +60,23 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `featured` TINYINT(1) UNSIGNED DEFAULT 0,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (`genre_id`) REFERENCES `genres`(`id`) ON DELETE SET NULL,
-  FOREIGN KEY (`country_id`) REFERENCES `countries`(`id`) ON DELETE SET NULL
+  KEY `idx_movies_genre_id` (`genre_id`),
+  KEY `idx_movies_country_id` (`country_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Bảng tập phim (cho series)
+CREATE TABLE IF NOT EXISTS `movie_episodes` (
+  `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `movie_id` INT UNSIGNED NOT NULL,
+  `episode_number` INT UNSIGNED NOT NULL,
+  `title` VARCHAR(255) DEFAULT NULL,
+  `video_type` ENUM('file', 'url', 'youtube') NOT NULL DEFAULT 'url',
+  `video_path` TEXT NOT NULL,
+  `duration` VARCHAR(20) DEFAULT NULL,
+  `status` ENUM('active', 'inactive') DEFAULT 'active',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY `unique_episode_number` (`movie_id`, `episode_number`),
+  KEY `idx_episode_movie_id` (`movie_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Bảng đánh giá
@@ -87,8 +87,8 @@ CREATE TABLE IF NOT EXISTS `ratings` (
   `rating` TINYINT UNSIGNED NOT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY `unique_rating` (`user_id`, `movie_id`),
-  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`movie_id`) REFERENCES `movies`(`id`) ON DELETE CASCADE
+  KEY `idx_ratings_user_id` (`user_id`),
+  KEY `idx_ratings_movie_id` (`movie_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Lịch sử xem
@@ -98,8 +98,8 @@ CREATE TABLE IF NOT EXISTS `watch_history` (
   `movie_id` INT UNSIGNED NOT NULL,
   `watched_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `unique_watch` (`user_id`, `movie_id`),
-  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`movie_id`) REFERENCES `movies`(`id`) ON DELETE CASCADE
+  KEY `idx_watch_user_id` (`user_id`),
+  KEY `idx_watch_movie_id` (`movie_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Bảng bình luận
@@ -110,8 +110,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `content` TEXT NOT NULL,
   `status` ENUM('active', 'hidden') DEFAULT 'active',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`movie_id`) REFERENCES `movies`(`id`) ON DELETE CASCADE
+  KEY `idx_comments_user_id` (`user_id`),
+  KEY `idx_comments_movie_id` (`movie_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ============================================================
