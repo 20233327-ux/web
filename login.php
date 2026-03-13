@@ -43,68 +43,89 @@ $pageTitle = 'Đăng nhập';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - <?= SITE_NAME ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-        <link href="<?= BASE_URL ?>/assets/css/style.css?v=20260314-2" rel="stylesheet">
-        <style>
-            /* Fallback: always show and allow typing in login inputs */
-            .auth-card input[type="text"],
-            .auth-card input[type="password"] {
-                display: block !important;
-                width: 100% !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                pointer-events: auto !important;
-                background: #1a1a1a !important;
-                border: 2px solid #555 !important;
-                color: #fff !important;
-                min-height: 46px !important;
-                padding: 12px 14px !important;
-            }
-        </style>
+    <style>
+        :root { color-scheme: dark; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #101114;
+            color: #fff;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+        }
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: #16181d;
+            border: 1px solid #2a2f39;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        h1 { margin: 0 0 16px; font-size: 28px; color: #ff3b30; text-align: center; }
+        .sub { text-align: center; color: #cfd3dc; margin-bottom: 18px; }
+        label { display: block; margin: 10px 0 6px; color: #d7dbe4; font-size: 14px; }
+        input {
+            width: 100%;
+            display: block;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #3a4250;
+            background: #0f1218;
+            color: #fff;
+            outline: none;
+        }
+        input:focus { border-color: #ff3b30; box-shadow: 0 0 0 3px rgba(255,59,48,.2); }
+        button {
+            width: 100%;
+            margin-top: 14px;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 700;
+            background: #ff3b30;
+            color: #fff;
+            cursor: pointer;
+        }
+        .alert {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .alert-danger { background: #3b1c1c; color: #ffd2d2; border: 1px solid #5e2f2f; }
+        .alert-success { background: #163124; color: #bde9d1; border: 1px solid #22553a; }
+        .alert-warning { background: #3a3218; color: #fff0bf; border: 1px solid #6a5922; }
+        .muted { color: #aab2bf; font-size: 14px; text-align: center; margin-top: 12px; }
+        a { color: #ff6961; }
+    </style>
 </head>
-<body class="auth-page">
-<div class="auth-bg"></div>
-<div class="auth-container">
-    <div class="auth-card">
-        <div class="text-center mb-4">
-            <a href="<?= BASE_URL ?>/index.php" class="brand-logo text-decoration-none d-block mb-2" style="font-size:2rem">🎬 <?= SITE_NAME ?></a>
-            <h4 class="text-white">Đăng nhập</h4>
-        </div>
+<body>
+<div class="card">
+    <h1><?= SITE_NAME ?></h1>
+    <div class="sub">Đăng nhập</div>
         <?php if ($error): ?>
-        <div class="alert alert-danger d-flex align-items-center gap-2">
-            <i class="fas fa-exclamation-circle"></i> <?= sanitize($error) ?>
-        </div>
+        <div class="alert alert-danger"><?= sanitize($error) ?></div>
         <?php endif; ?>
         <?php if (!empty($_GET['registered'])): ?>
-        <div class="alert alert-success d-flex align-items-center gap-2">
-            <i class="fas fa-check-circle"></i> Đăng ký thành công! Vui lòng đăng nhập.
-        </div>
+        <div class="alert alert-success">Đăng ký thành công! Vui lòng đăng nhập.</div>
         <?php endif; ?>
         <?php if (!empty($_GET['error']) && $_GET['error'] === 'banned'): ?>
         <div class="alert alert-warning">Tài khoản của bạn đã bị khóa.</div>
         <?php endif; ?>
         <form method="POST" novalidate>
             <input type="hidden" name="csrf_token" value="<?= $csrf ?>">
-            <div class="mb-3">
-                <label class="form-label text-muted">Tên đăng nhập hoặc Email</label>
-                <input type="text" name="username" class="form-control auth-input auth-input-plain" placeholder="Nhập tên đăng nhập..."
-                       value="<?= sanitize($_POST['username'] ?? '') ?>" required autofocus>
-            </div>
-            <div class="mb-4">
-                <label class="form-label text-muted">Mật khẩu</label>
-                <input type="password" name="password" class="form-control auth-input auth-input-plain" placeholder="Nhập mật khẩu..." required id="passwordField">
-            </div>
-            <button type="submit" class="btn btn-danger w-100 py-2 fw-bold">
-                <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
-            </button>
+            <label for="username">Tên đăng nhập hoặc Email</label>
+            <input id="username" type="text" name="username" placeholder="Nhập tên đăng nhập..." value="<?= sanitize($_POST['username'] ?? '') ?>" required autofocus autocomplete="username">
+
+            <label for="password">Mật khẩu</label>
+            <input id="password" type="password" name="password" placeholder="Nhập mật khẩu..." required autocomplete="current-password">
+
+            <button type="submit">Đăng nhập</button>
         </form>
-        <hr class="border-secondary my-3">
-        <p class="text-center text-muted mb-0">
-            Chưa có tài khoản? <a href="<?= BASE_URL ?>/register.php" class="text-danger">Đăng ký ngay</a>
-        </p>
-    </div>
+        <p class="muted">Chưa có tài khoản? <a href="<?= BASE_URL ?>/register.php">Đăng ký ngay</a></p>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
