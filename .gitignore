@@ -1,0 +1,17 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Runtime uploads (keep folders via .htaccess)
+uploads/movies/*
+!uploads/movies/.htaccess
+uploads/thumbnails/*
+!uploads/thumbnails/.htaccess
+
+# Logs/cache
+*.log
+*.cache
+
+# Optional local overrides
+.env

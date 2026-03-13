@@ -1,0 +1,5 @@
+# Deny direct access to uploaded movie files
+# Videos are served through stream.php
+
+Order Deny,Allow
+Deny from all

@@ -1,0 +1,130 @@
+/* ============================================================
+   PhimWeb Admin CSS
+   ============================================================ */
+
+:root {
+  --admin-bg:      #0f0f0f;
+  --admin-sidebar: #1a1a1a;
+  --admin-card:    #1e1e1e;
+  --admin-border:  #2d2d2d;
+  --red:           #e50914;
+}
+
+body.admin-body {
+  background: var(--admin-bg);
+  color: #e0e0e0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Sidebar ───────────────────────────────────────────────── */
+.admin-sidebar {
+  width: 230px;
+  min-height: 100vh;
+  background: var(--admin-sidebar);
+  border-right: 1px solid var(--admin-border);
+  position: fixed; top: 0; left: 0; z-index: 1040;
+  display: flex; flex-direction: column;
+  transition: width .25s, transform .25s;
+  overflow: hidden;
+}
+.admin-sidebar.collapsed { width: 0; }
+.sidebar-brand {
+  padding: 20px 16px 14px;
+  border-bottom: 1px solid var(--admin-border);
+  white-space: nowrap;
+}
+.sidebar-nav { padding: 8px 0; overflow-y: auto; flex: 1; }
+.sidebar-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 18px;
+  color: #aaa; text-decoration: none;
+  font-size: .9rem; white-space: nowrap;
+  transition: background .15s, color .15s;
+  border-left: 3px solid transparent;
+}
+.sidebar-link i { width: 18px; text-align: center; flex-shrink: 0; font-size: .95rem; }
+.sidebar-link:hover { background: rgba(255,255,255,.06); color: #fff; }
+.sidebar-link.active { background: rgba(229,9,20,.12); color: #fff; border-left-color: var(--red); }
+
+/* ── Main content ──────────────────────────────────────────── */
+.admin-main {
+  margin-left: 230px;
+  flex: 1;
+  min-width: 0;
+  transition: margin-left .25s;
+}
+.admin-main.expanded { margin-left: 0; }
+
+.admin-topbar {
+  background: var(--admin-sidebar);
+  border-bottom: 1px solid var(--admin-border);
+  height: 54px; position: sticky; top: 0; z-index: 100;
+}
+.admin-content { padding-bottom: 40px; min-height: calc(100vh - 54px); }
+
+/* ── Cards / Tables ────────────────────────────────────────── */
+.admin-card {
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  padding: 20px;
+}
+.table-dark { --bs-table-bg: var(--admin-card); --bs-table-border-color: var(--admin-border); }
+.table-dark thead th { background: #252525 !important; color: #aaa; font-weight: 600; font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; }
+.table-dark td { vertical-align: middle; font-size: .88rem; border-color: var(--admin-border) !important; }
+.table-dark tbody tr:hover { background: rgba(255,255,255,.04) !important; }
+
+/* ── Stat cards ────────────────────────────────────────────── */
+.stat-card {
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  padding: 18px;
+  display: flex; align-items: center; gap: 16px;
+}
+.stat-icon {
+  width: 48px; height: 48px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: #fff; opacity: .9; flex-shrink: 0;
+}
+.stat-number { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+.stat-label  { font-size: .78rem; color: #888; margin-top: 3px; }
+
+/* ── Form inputs ───────────────────────────────────────────── */
+.admin-input, .form-control.admin-input, .form-select.admin-input {
+  background: #252525 !important;
+  border: 1px solid #3a3a3a !important;
+  color: #e0e0e0 !important;
+  border-radius: 6px;
+}
+.admin-input:focus, .form-control.admin-input:focus, .form-select.admin-input:focus {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 2px rgba(229,9,20,.2) !important;
+  background: #2a2a2a !important;
+}
+.admin-input::placeholder { color: #666; }
+.form-label { font-size: .85rem; }
+
+/* ── Avatar circle ─────────────────────────────────────────── */
+.avatar-circle {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--red); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .85rem;
+}
+
+/* ── Video panel tabs ──────────────────────────────────────── */
+.video-type-btn { font-size: .82rem; }
+.btn-check:checked + .video-type-btn { background: var(--red) !important; border-color: var(--red) !important; color: #fff !important; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .admin-sidebar { transform: translateX(-100%); }
+  .admin-sidebar:not(.collapsed) { transform: translateX(0); }
+  .admin-main { margin-left: 0; }
+}
+
+/* ── Alerts ────────────────────────────────────────────────── */
+.alert { border-radius: 8px; font-size: .9rem; }

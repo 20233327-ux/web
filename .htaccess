@@ -1,0 +1,41 @@
+Options -Indexes
+ServerSignature Off
+
+# PHP settings
+php_value upload_max_filesize 2048M
+php_value post_max_size 2048M
+php_value max_execution_time 600
+php_value max_input_time 600
+php_value memory_limit 512M
+
+# Rewrite
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 7 days"
+    ExpiresByType image/png  "access plus 7 days"
+    ExpiresByType image/webp "access plus 7 days"
+    ExpiresByType text/css   "access plus 1 day"
+    ExpiresByType application/javascript "access plus 1 day"
+</IfModule>
+
+# Block access to sensitive files
+<FilesMatch "(\.env|composer\.(json|lock)|\.htpasswd)$">
+    Deny from all
+</FilesMatch>
+
+<Files "upgrade_v2.sql">
+    Deny from all
+</Files>
