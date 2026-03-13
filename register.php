@@ -67,6 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           border-radius: 12px;
           padding: 24px;
       }
+      .top-link {
+          display: inline-block;
+          margin-bottom: 10px;
+          font-size: 14px;
+      }
       h1 { margin: 0 0 16px; font-size: 28px; color: #ff3b30; text-align: center; }
       .sub { text-align: center; color: #cfd3dc; margin-bottom: 18px; }
       label { display: block; margin: 10px 0 6px; color: #d7dbe4; font-size: 14px; }
@@ -105,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="card">
+    <a class="top-link" href="<?= BASE_URL ?>/index.php">← Về trang chủ</a>
     <h1><?= SITE_NAME ?></h1>
     <div class="sub">Tạo tài khoản</div>
         <?php if ($error): ?>

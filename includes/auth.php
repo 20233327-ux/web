@@ -120,7 +120,23 @@ function login(string $usernameOrEmail, string $password): array {
     $stmt = getDB()->prepare('SELECT id,username,email,password,role,status FROM users WHERE LOWER(username)=LOWER(?) OR LOWER(email)=LOWER(?)');
     $stmt->execute([$usernameOrEmail, $usernameOrEmail]);
     $user = $stmt->fetch();
-    if (!$user || !password_verify($password, $user['password'])) {
+    if (!$user) {
+        return ['success' => false, 'message' => 'Tên đăng nhập hoặc mật khẩu không đúng.'];
+    }
+
+    $stored = (string)$user['password'];
+    $isValid = password_verify($password, $stored);
+
+    // Compatibility for legacy accounts (plain text / md5) then auto-upgrade to bcrypt.
+    if (!$isValid && $stored !== '') {
+        $isValid = hash_equals($stored, $password) || hash_equals($stored, md5($password));
+        if ($isValid) {
+            getDB()->prepare('UPDATE users SET password=? WHERE id=?')
+                ->execute([password_hash($password, PASSWORD_BCRYPT), $user['id']]);
+        }
+    }
+
+    if (!$isValid) {
         return ['success' => false, 'message' => 'Tên đăng nhập hoặc mật khẩu không đúng.'];
     }
     if ($user['status'] === 'banned') {
